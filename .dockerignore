@@ -1,0 +1,9 @@
+README.md
+LICENSE.txt
+compile.sh
+.gitignore
+.dockerignore
+.github
+.cache
+.config
+.local

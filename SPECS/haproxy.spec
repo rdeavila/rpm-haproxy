@@ -18,8 +18,8 @@ Version: %{version}
 Release: %{release}%{?dist}
 License: GPLv2+
 Group: System Environment/Daemons
-URL: http://www.haproxy.org/
-Source0: http://www.haproxy.org/download/%{mainversion}/src/%{name}-%{version}.tar.gz
+URL: https://www.haproxy.org/
+Source0: https://www.haproxy.org/download/%{mainversion}/src/%{name}-%{version}.tar.gz
 Source1: %{name}.cfg
 %if 0%{?el6} || 0%{?amzn1}
 Source2: %{name}.init
@@ -238,6 +238,9 @@ fi
 %endif
 
 %changelog
+* Sat Jul 29 2023 Rodrigo de Avila <repo@rda.run>
+- Use single branch to build multiple versions
+
 * Wed Apr 5 2023 Xiao Liang <izzyliang@gmail.com>
 - Add support for Amazon Linux 2023
 

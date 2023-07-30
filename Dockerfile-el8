@@ -1,0 +1,25 @@
+FROM centos:8
+
+RUN sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-Linux-* && \
+    sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-Linux-*
+RUN yum install -y pcre-devel make gcc openssl-devel rpm-build systemd-devel curl sed zlib-devel
+RUN mkdir -p /rpmbuild/SPECS
+RUN mkdir -p /rpmbuild/SOURCES
+
+CMD cp -r /SPECS/* /rpmbuild/SPECS/ && \
+	cp -r /SOURCES/* /rpmbuild/SOURCES/ && \
+    cd /rpmbuild && \
+	rpmbuild -v -ba SPECS/haproxy.spec \
+  	    --define "mainversion ${MAINVERSION}" \
+	    --define "version ${VERSION}" \
+        --define "release ${RELEASE}" \
+        --define "_topdir /rpmbuild" \
+        --define "_builddir %{_topdir}/BUILD" \
+        --define "_buildroot %{_topdir}/BUILDROOT" \
+        --define "_rpmdir %{_topdir}/RPMS" \
+        --define "_srcrpmdir %{_topdir}/SRPMS" \
+    	--define "_extra_cflags 0" \
+        --define "_use_lua 0" \
+        --define "_use_prometheus ${USE_PROMETHEUS}" && \
+    cp /rpmbuild/RPMS/x86_64/* /RPMS && \
+    cp /rpmbuild/SRPMS/* /RPMS
