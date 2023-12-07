@@ -48,6 +48,7 @@ RELEASE=3 ./compile.sh
 ## Credits
 
 Based on the Red Hat 6.4 RPM spec for haproxy 1.4 combined with work done by
+
 - [@DBezemer](https://github.com/DBezemer)
 - [@nmilford](https://www.github.com/nmilford)
 - [@resmo](https://www.github.com/resmo) 
