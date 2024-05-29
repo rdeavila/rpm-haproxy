@@ -15,8 +15,7 @@ COMPILE_FOR_EL8=${COMPILE_FOR_EL8:-1}
 COMPILE_FOR_EL7=${COMPILE_FOR_EL7:-1}
 
 VERSIONS=(
-  "2.9.7"
-  "2.8.9"
+  "3.0.0"
 )
 
 mkdir -p RPMS
