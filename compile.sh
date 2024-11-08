@@ -12,10 +12,12 @@ RELEASE=${RELEASE:-1}
 
 COMPILE_FOR_EL9=${COMPILE_FOR_EL9:-1}
 COMPILE_FOR_EL8=${COMPILE_FOR_EL8:-1}
-COMPILE_FOR_EL7=${COMPILE_FOR_EL7:-1}
 
+# Last versions compiled on every serie
 VERSIONS=(
-  "3.0.0"
+  # "3.0.6"
+  # "2.9.11"
+  "2.8.11"
 )
 
 mkdir -p RPMS
@@ -59,20 +61,6 @@ function build {
         -e USE_PROMETHEUS=${USE_PROMETHEUS} \
         rdeavila/rpm-haproxy-el8:latest
 
-    fi
-
-    if [ "$COMPILE_FOR_EL7" == "1" ]; then
-      echo "==> Compiling $CONTAINER_RUNTIME image..."
-      $CONTAINER_RUNTIME build -t rdeavila/rpm-haproxy-el7:latest -f Dockerfile-el7 .
-
-      echo "==> Compiling package..."
-      $CONTAINER_RUNTIME run --rm \
-        -v ./RPMS:/RPMS -v ./SOURCES:/SOURCES -v ./SPECS:/SPECS \
-        -e MAINVERSION=${MAINVERSION} \
-        -e VERSION=${VERSION} \
-        -e RELEASE=${RELEASE} \
-        -e USE_PROMETHEUS=${USE_PROMETHEUS} \
-        rdeavila/rpm-haproxy-el7:latest
     fi
 
     echo "==> Cleaning up..."
