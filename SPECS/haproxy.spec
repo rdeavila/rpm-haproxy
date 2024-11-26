@@ -12,7 +12,7 @@
 
 %global _hardened_build 1
 
-Summary: HA-Proxy reverse proxy for high availability environments
+Summary: HAProxy reverse proxy for high availability environments
 Name: haproxy
 Version: %{version}
 Release: %{release}%{?dist}
@@ -62,20 +62,18 @@ Requires(postun):   systemd
 %endif
 
 %description
-HA-Proxy is a TCP/HTTP reverse proxy which is particularly suited for high
+HAProxy is a TCP/HTTP reverse proxy which is particularly suited for high
 availability environments. Indeed, it can:
-- route HTTP requests depending on statically assigned cookies
-- spread the load among several servers while assuring server persistence
-  through the use of HTTP cookies
-- switch to backup servers in the event a main one fails
-- accept connections to special ports dedicated to service monitoring
-- stop accepting connections without breaking existing ones
-- add/modify/delete HTTP headers both ways
-- block requests matching a particular pattern
-
-It needs very little resource. Its event-driven architecture allows it to easily
-handle thousands of simultaneous connections on hundreds of instances without
-risking the system's stability.
+ - route HTTP requests depending on statically assigned cookies
+ - spread load among several servers while assuring server persistence
+   through the use of HTTP cookies
+ - switch to backup servers in the event a main one fails
+ - accept connections to special ports dedicated to service monitoring
+ - stop accepting connections without breaking existing ones
+ - add, modify, and delete HTTP headers in both directions
+ - block requests matching particular patterns
+ - report detailed status to authenticated users from a URI
+   intercepted from the application
 
 %prep
 %setup -q
@@ -213,7 +211,7 @@ fi
 
 %files
 %defattr(-,root,root)
-%doc CHANGELOG README examples/*.cfg doc/architecture.txt doc/configuration.txt doc/intro.txt doc/management.txt doc/proxy-protocol.txt
+%doc CHANGELOG README* examples/* doc/*
 %if 0%{?el7} || 0%{?amzn2} || 0%{?amzn2023} || 0%{?el8} || 0%{?el9}
     %license LICENSE
 %endif

@@ -1,9 +1,8 @@
 This repository contains build artifacts of HAproxy that are provided with no
 support and no expectation of stability. The recommended way of using the
-repository is to build and test your own packages. Latest Work-in-Progress
-builds can be found under release label "WiP RPM Build".
+repository is to build and test your own packages.
 
-# RPM Specs for HAproxy on EL9/EL8/EL7 with syslog logging to separate output files
+# RPM Specs for HAproxy on EL9/EL8 with syslog logging to separate output files
 
 ## Contributing
 
@@ -34,7 +33,6 @@ USE_PODMAN=1 ./compile.sh      # build using podman instead docker (default '1')
 EXTRA_CFLAGS=-O0 ./compile.sh  # custom CFLAGS, e.g. '-O0' to disable optimization for debug
 COMPILE_FOR_EL9=1 ./compile.sh # build el9 package (default '1')
 COMPILE_FOR_EL8=1 ./compile.sh # build el8 package (default '1')
-COMPILE_FOR_EL7=1 ./compile.sh # build el7 package (default '1')
 ```
 
 Resulting RPMs will be in `./RPMS/` When updating any of the files that are
