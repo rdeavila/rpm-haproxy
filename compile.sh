@@ -15,10 +15,10 @@ COMPILE_FOR_EL8=${COMPILE_FOR_EL8:-1}
 
 # Last versions compiled on every serie
 VERSIONS=(
-  "3.1.0"
-  # "3.0.6"
-  # "2.9.12"
-  # "2.8.12"
+  # "3.1.1"
+  # "3.0.7"
+  # "2.9.13"
+  "2.8.13"
 )
 
 mkdir -p RPMS
