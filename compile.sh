@@ -15,27 +15,27 @@ COMPILE_FOR_EL8=${COMPILE_FOR_EL8:-1}
 
 # Last versions compiled on every serie
 VERSIONS=(
-  "3.1.2"
-  # "3.0.7"
-  # "2.9.13"
-  # "2.8.13"
+  # "3.1.3"
+  # "3.0.8"
+  # "2.9.14"
+  "2.8.14"
 )
 
 mkdir -p RPMS
 
-function build {
+build() {
     VERSION=$1
-    MAINVERSION=$(echo ${VERSION} | cut -d "." -f-2)
+    MAINVERSION=$(echo "${VERSION}" | cut -d "." -f-2)
     CONTAINER_RUNTIME="docker"
 
-    if [ "$USE_PODMAN" == "1" ]; then
+    if [[ "$USE_PODMAN" == "1" ]]; then
       CONTAINER_RUNTIME="podman"
     fi
 
     echo "==> Downloading haproxy-${VERSION}..."
-    curl -s -o ./SOURCES/haproxy-${VERSION}.tar.gz https://www.haproxy.org/download/${MAINVERSION}/src/haproxy-${VERSION}.tar.gz
+    curl -sf -o ./SOURCES/haproxy-${VERSION}.tar.gz https://www.haproxy.org/download/${MAINVERSION}/src/haproxy-${VERSION}.tar.gz || { echo "Download failed"; exit 1; }
 
-    if [ "$COMPILE_FOR_EL9" == "1" ]; then
+    if [[ "$COMPILE_FOR_EL9" == "1" ]]; then
       echo "==> Compiling $CONTAINER_RUNTIME image..."
       $CONTAINER_RUNTIME build -t rdeavila/rpm-haproxy-el9:latest -f Dockerfile-el9 .
 
@@ -49,7 +49,7 @@ function build {
         rdeavila/rpm-haproxy-el9:latest
     fi
 
-    if [ "$COMPILE_FOR_EL8" == "1" ]; then
+    if [[ "$COMPILE_FOR_EL8" == "1" ]]; then
       echo "==> Compiling $CONTAINER_RUNTIME image..."
       $CONTAINER_RUNTIME build -t rdeavila/rpm-haproxy-el8:latest -f Dockerfile-el8 .
 
@@ -65,12 +65,12 @@ function build {
     fi
 
     echo "==> Cleaning up..."
-   	rm -f ./SOURCES/haproxy-${VERSION}.tar.gz
+    rm -f ./SOURCES/haproxy-${VERSION}.tar.gz || true
 
     echo "==> Done."
     echo
 }
 
-for i in ${VERSIONS[@]}; do
-  build ${i}
+for i in "${VERSIONS[@]}"; do
+  build "${i}"
 done
